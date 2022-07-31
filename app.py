@@ -6,16 +6,16 @@ import pickle
 from sklearn.preprocessing import StandardScaler
 
 # Create flask app
-flask_app = Flask(__name__)
+app = Flask(__name__)
 model = pickle.load(open("model.pkl", "rb"))
 admissionModel= pickle.load(open("model1.pkl", "rb"));
 admissionScaler=pickle.load(open("scaler1.pkl","rb"))
-cors = CORS(flask_app)
-@flask_app.route("/")
+cors = CORS(app)
+@app.route("/")
 def Home():
     return "Main Route"
 
-@flask_app.route("/predictIris", methods = ["POST"])
+@app.route("/predictIris", methods = ["POST"])
 def predict():
     response={
         'prediction':None,
@@ -35,7 +35,7 @@ def predict():
         return jsonify(response)
 
 
-@flask_app.route("/predictAdmission", methods = ["POST"])
+@app.route("/predictAdmission", methods = ["POST"])
 def predict1():
     response={
         'prediction':None,
@@ -61,4 +61,4 @@ def predict1():
 
     
 if __name__ == "__main__":
-    flask_app.run(debug=True)
+    app.run(debug=True)
